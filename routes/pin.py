@@ -39,7 +39,6 @@ def save_pin():
             "first_name": user.first_name,
             "last_name": user.last_name,
             "graduation_year": user.graduation_year,
-            "barcode": user.barcode,
             "message": "Login successful",
             "session_token": session_token,
             "pin_hash": user.pin_hash,

@@ -64,7 +64,6 @@ def login():
             "first_name": user.first_name,
             "last_name": user.last_name,
             "graduation_year": user.graduation_year,
-            "barcode": user.barcode,
             "pin_hash": user.pin_hash,
             "pin_salt": user.pin_salt
         }), 200

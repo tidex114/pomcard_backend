@@ -34,7 +34,6 @@ class User(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     graduation_year = db.Column(db.Integer, nullable=False)
     gmail = db.Column(db.String(100), unique=True, nullable=False)
-    barcode = db.Column(db.String(20), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=True)
     pin_hash = db.Column(db.String(128), nullable=True)
     pin_salt = db.Column(db.String(128), nullable=True)  # New column for storing the salt
