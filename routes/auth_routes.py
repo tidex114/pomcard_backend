@@ -13,6 +13,7 @@ from routes.password_reset import auth_password_reset
 from routes.get_salt import get_salt
 from routes.account_freeze import account_freeze
 from routes.store_public_key import store_public_key
+from routes.check_public_key import check_public_key
 
 auth_routes.add_url_rule('/register', view_func=register, methods=['POST'])
 auth_routes.add_url_rule('/register/reset', view_func=reset_registration, methods=['POST'])
@@ -25,3 +26,4 @@ auth_routes.add_url_rule('/password_reset', view_func=auth_password_reset, metho
 auth_routes.add_url_rule('/get_salt', view_func=get_salt, methods=['POST'])
 auth_routes.add_url_rule('/account_freeze', view_func=account_freeze, methods=['POST'])
 auth_routes.add_url_rule('/store_public_key', view_func=store_public_key, methods=['POST'])
+auth_routes.add_url_rule('/check_public_key', view_func=check_public_key, methods=['POST'])
