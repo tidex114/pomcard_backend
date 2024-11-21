@@ -34,7 +34,7 @@ def verify_code():
                 return jsonify({"message": "Your email is not authorized to create an account. Please contact the IT office."}), 403
 
             # Transfer hashed password from the RegisteringUser to User table
-            existing_user.password_hash = registering_user.hashed_password
+
             db.session.commit()
 
             # Optionally, delete the registration attempt after successful verification
