@@ -88,3 +88,17 @@ class PasswordReset(db.Model):
 
     def __repr__(self):
         return f"<PasswordReset email={self.email} reset_code={self.reset_code}>"
+
+class Report(db.Model):
+    __tablename__ = 'reports'
+
+    id = db.Column(db.Integer, primary_key=True)
+    gmail = db.Column(db.String(255), nullable=False)
+    subject = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    sent_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    status = db.Column(db.String(50), default='pending')
+
+    def __repr__(self):
+        return f"<Report id={self.id} gmail={self.gmail} status={self.status}>"
