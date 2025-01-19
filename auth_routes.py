@@ -20,6 +20,7 @@ from routes.send_report import send_report
 from routes.auth import refresh_token
 from routes.validate_pin import validate_pin
 from routes.get_pin_salt import get_pin_salt
+from routes.validate_token import validate_token_route
 
 auth_routes.add_url_rule('/register', view_func=register, methods=['POST'])
 auth_routes.add_url_rule('/register/reset', view_func=reset_registration, methods=['POST'])
@@ -38,4 +39,4 @@ auth_routes.add_url_rule('/refresh', 'refresh_token', refresh_token, methods=['P
 auth_routes.add_url_rule('/validate_pin', 'validate_pin', validate_pin, methods=['POST'])
 auth_routes.add_url_rule('/logout', 'logout', logout, methods=['POST'])
 auth_routes.add_url_rule('/get_pin_salt', 'get_pin_salt', get_pin_salt, methods=['POST'])
-
+auth_routes.add_url_rule('/validate_jwt', 'validate_jwt', validate_token_route, methods=['POST'])

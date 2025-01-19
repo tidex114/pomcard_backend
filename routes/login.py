@@ -25,10 +25,10 @@ def login():
         user = User.query.filter_by(gmail=gmail).first()
         if not user or user.password_hash != hashed_password:
             return jsonify({"error": "Invalid email or password."}), 401
-
+        full_name = user.first_name + " " + user.last_name
         # Generate JWT tokens
-        access_token = generate_jwt(uid=user.id, device_info=device_info)
-        refresh_token = generate_refresh_token(uid=user.id, device_info=device_info)
+        access_token = generate_jwt(uid=user.id, full_name=full_name, device_info=device_info)
+        refresh_token = generate_refresh_token(uid=user.id, full_name=full_name, device_info=device_info)
 
         # Store the refresh token
         store_refresh_token(user.id, refresh_token, device_info)
