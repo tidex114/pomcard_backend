@@ -2,12 +2,11 @@ import jwt
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-import os
 from flask import request, jsonify
-
 
 # Load environment variables
 load_dotenv()
+
 
 def validate_access_token(access_token, uid, full_name):
     try:
@@ -18,9 +17,11 @@ def validate_access_token(access_token, uid, full_name):
 
         if not secret_key or not issuer_env:
             print("Missing environment variables for secret key or issuer")
-            return False
+            return 1  # Reason 1: Missing environment variables
+
         print("Expected audience from environment:", audience_env)
         print("Expected issuer from environment:", issuer_env)
+
         # Decode and verify the JWT
         print(access_token)
         payload = jwt.decode(
@@ -37,32 +38,34 @@ def validate_access_token(access_token, uid, full_name):
         # Check `sub` (user ID) and convert to string
         if str(payload.get("sub")) != str(uid):
             print("Invalid subject (user ID)")
-            return False
+            return 2  # Reason 2: Invalid subject (user ID)
 
         # Check `name`
         if payload.get("name") != full_name:
             print("Invalid full name")
-            return False
+            return 3  # Reason 3: Invalid full name
 
         # Check `iss` (issuer)
         issuer = payload.get("iss")
         if issuer and issuer != issuer_env:
             print("Invalid issuer")
-            return False
+            return 4  # Reason 4: Invalid issuer
 
         # Token is valid
         print("Access token is valid")
-        return True
+        return 0  # Reason 0: Token is valid
 
     except jwt.ExpiredSignatureError:
         print("Access token has expired")
-        return False
+        return 5  # Reason 5: Access token has expired
     except jwt.InvalidTokenError as e:
         print(f"Invalid token: {e}")
-        return False
+        return 6  # Reason 6: Invalid token
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-        return False
+        return 7  # Reason 7: An unexpected error occurred
+
+
 def validate_token_route():
     try:
         # Parse JSON request body
@@ -77,12 +80,12 @@ def validate_token_route():
             return jsonify({"error": "Missing required fields"}), 400
 
         # Validate the token
-        is_valid = validate_access_token(access_token, uid, full_name)
+        reason_code = validate_access_token(access_token, uid, full_name)
 
-        if is_valid:
+        if reason_code == 0:
             return jsonify({"message": "Token is valid"}), 200
         else:
-            return jsonify({"error": "Token is invalid"}), 401
+            return jsonify({"error": "Token is invalid", "reason_code": reason_code}), 401
 
     except Exception as e:
         print(f"Unexpected error: {e}")

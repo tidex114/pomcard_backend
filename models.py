@@ -112,3 +112,4 @@ class RefreshToken(db.Model):
     expires_at = db.Column(db.DateTime, nullable=False)
     device_model = db.Column(db.String(255), nullable=True)
     user_id = db.Column(db.String(255), db.ForeignKey('users.id'), nullable=False)
+    token_salt = db.Column(db.String(255), nullable=True)

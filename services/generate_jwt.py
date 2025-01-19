@@ -16,19 +16,21 @@ def generate_jwt(uid, full_name, device_info, expiration_minutes=0.5):
         'iat': datetime.datetime.utcnow(),
         'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=expiration_minutes),
         'aud': AUDIENCE,
-        'iss': ISSUER
+        'iss': ISSUER,
+        'device_info': device_info
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
     return token
 
 def generate_refresh_token(uid, full_name, device_info, expiration_days=7):
     payload = {
-        'sub': uid,
+        'sub': str(uid),
         'name': full_name,
         'iat': datetime.datetime.utcnow(),
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=expiration_days),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5),
         'aud': AUDIENCE,
-        'iss': ISSUER
+        'iss': ISSUER,
+        'device_info': device_info
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
     return token

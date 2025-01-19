@@ -17,10 +17,10 @@ from routes.check_public_key import check_public_key
 from routes.login import login
 from routes.logout import logout
 from routes.send_report import send_report
-from routes.auth import refresh_token
 from routes.validate_pin import validate_pin
 from routes.get_pin_salt import get_pin_salt
-from routes.validate_token import validate_token_route
+from routes.validate_access_token import validate_token_route
+from routes.refresh_access_token import refresh_access_token
 
 auth_routes.add_url_rule('/register', view_func=register, methods=['POST'])
 auth_routes.add_url_rule('/register/reset', view_func=reset_registration, methods=['POST'])
@@ -35,8 +35,8 @@ auth_routes.add_url_rule('/account_freeze', view_func=account_freeze, methods=['
 auth_routes.add_url_rule('/store_public_key', view_func=store_public_key, methods=['POST'])
 auth_routes.add_url_rule('/check_public_key', view_func=check_public_key, methods=['POST'])
 auth_routes.add_url_rule('/send_report', view_func=send_report, methods=['POST'])
-auth_routes.add_url_rule('/refresh', 'refresh_token', refresh_token, methods=['POST'])
 auth_routes.add_url_rule('/validate_pin', 'validate_pin', validate_pin, methods=['POST'])
 auth_routes.add_url_rule('/logout', 'logout', logout, methods=['POST'])
 auth_routes.add_url_rule('/get_pin_salt', 'get_pin_salt', get_pin_salt, methods=['POST'])
 auth_routes.add_url_rule('/validate_jwt', 'validate_jwt', validate_token_route, methods=['POST'])
+auth_routes.add_url_rule('/refresh_access_token', 'refresh_access_token', refresh_access_token, methods=['POST'])
