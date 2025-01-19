@@ -102,3 +102,13 @@ class Report(db.Model):
 
     def __repr__(self):
         return f"<Report id={self.id} gmail={self.gmail} status={self.status}>"
+
+
+class RefreshToken(db.Model):
+    __tablename__ = 'refresh_token'
+
+    refresh_token = db.Column(db.String(512), primary_key=True)  # Make refresh_token the primary key
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    device_model = db.Column(db.String(255), nullable=True)
+    user_id = db.Column(db.String(255), db.ForeignKey('users.id'), nullable=False)

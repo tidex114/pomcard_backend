@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 # Import the routes after app and db are initialized
-from routes.auth_routes import auth_routes
+from auth_routes import auth_routes
 app.register_blueprint(auth_routes)
 
 # Example route where you set the session permanent flag
