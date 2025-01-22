@@ -1,5 +1,5 @@
 import jwt
-from jwt import ExpiredSignatureError, InvalidTokenError
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from dotenv import load_dotenv
 import os
 
@@ -11,7 +11,13 @@ ISSUER = os.getenv('ISSUER')
 
 def validate_jwt(token):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'], audience=AUDIENCE, issuer=ISSUER)
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=['HS256'],
+            audience=AUDIENCE,
+            issuer=ISSUER
+        )
         return payload
     except ExpiredSignatureError:
         return {'error': 'Token has expired'}
