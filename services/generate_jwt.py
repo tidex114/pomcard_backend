@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv('APP_SECRET_KEY')
 ISSUER = os.getenv('ISSUER')
 AUDIENCE = os.getenv('AUDIENCE')
 
-def generate_jwt(uid, full_name, device_info, expiration_minutes=0.5):
+def generate_jwt(uid, full_name, device_info, expiration_minutes=15):
     payload = {
         'sub': str(uid),
         'name': full_name,
@@ -27,7 +27,7 @@ def generate_refresh_token(uid, full_name, device_info, expiration_days=7):
         'sub': str(uid),
         'name': full_name,
         'iat': datetime.datetime.utcnow(),
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=5),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(expiration_days),
         'aud': AUDIENCE,
         'iss': ISSUER,
         'device_info': device_info

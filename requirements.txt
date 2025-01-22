@@ -7,3 +7,4 @@ flask_sqlalchemy
 gunicorn
 pymysql
 sqlalchemy
+jwt
