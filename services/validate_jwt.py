@@ -1,5 +1,5 @@
 import jwt
-from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
+from jwt import ExpiredSignatureError, InvalidTokenError
 from dotenv import load_dotenv
 import os
 
