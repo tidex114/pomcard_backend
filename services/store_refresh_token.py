@@ -27,6 +27,7 @@ def store_refresh_token(uid, refresh_token, device_info):
         user_id=uid,
         token_salt=salt.decode('utf-8'),
     )
+    print(expires_at)
     db.session.add(new_refresh_token)
     db.session.commit()
 

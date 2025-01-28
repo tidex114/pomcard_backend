@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv('APP_SECRET_KEY')
 ISSUER = os.getenv('ISSUER')
 AUDIENCE = os.getenv('AUDIENCE')
 
-def generate_jwt(uid, full_name, device_info, expiration_minutes=15):
+def generate_jwt(uid, full_name, device_info, expiration_minutes=0.5):
     payload = {
         'sub': str(uid),
         'name': full_name,
